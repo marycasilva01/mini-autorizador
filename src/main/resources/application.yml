@@ -1,0 +1,20 @@
+spring:
+  jpa:
+    hibernate:
+      ddl-auto: update
+    database: mysql
+    database-platform: org.hibernate.dialect.MySQL57Dialect
+  datasource:
+    url: ${DATABASE_URL:jdbc:mysql://localhost:3306/miniautorizador}
+    username: root
+    password:
+
+server:
+  port: 8080
+  error:
+    include-stacktrace: never
+
+springdoc:
+  swagger-ui:
+    disable-swagger-default-url: true
+    path: /swagger-ui/index.html
