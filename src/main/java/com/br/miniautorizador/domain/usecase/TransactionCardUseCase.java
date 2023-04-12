@@ -9,9 +9,9 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 public class TransactionCardUseCase {
 
-    private final TransactionProvider cardProvider;
+    private final TransactionProvider transactionProvider;
 
     public void execute(TransactionRequest transactionRequest){
-        cardProvider.execute(transactionRequest);
+        transactionProvider.execute(transactionRequest);
     }
 }

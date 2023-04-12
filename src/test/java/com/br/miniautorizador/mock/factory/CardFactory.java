@@ -17,7 +17,7 @@ public final class CardFactory {
 
     public static CardDTO createCardDTO() {
         return CardDTO.builder()
-                .amount(BigDecimal.TEN)
+                .amount(BigDecimal.valueOf(500))
                 .id(ID)
                 .password(PASSWORD)
                 .number(NUMBER)

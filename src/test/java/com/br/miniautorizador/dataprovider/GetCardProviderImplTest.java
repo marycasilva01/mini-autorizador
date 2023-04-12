@@ -19,7 +19,7 @@ import static org.mockito.Mockito.when;
 @ExtendWith(MockitoExtension.class)
 class GetCardProviderImplTest {
 
-    private static final String NUMBER_CARD="2345678912345678";
+    private static final String NUMBER_CARD = "2345678912345678";
     @InjectMocks
     private GetCardProviderImpl getCardProvider;
 
@@ -27,7 +27,7 @@ class GetCardProviderImplTest {
     private CardRepository cardRepository;
 
     @Test
-    void shouldReturnSuccessWhenFindByNumber(){
+    void shouldReturnSuccessWhenFindByNumber() {
         var optEntity = CardFactory.createCard();
         when(cardRepository.findByNumber(eq(NUMBER_CARD))).thenReturn(Optional.of(optEntity));
 
@@ -38,7 +38,7 @@ class GetCardProviderImplTest {
     }
 
     @Test
-    void shouldReturnOptionalEmptyWhenFindByNumber(){
+    void shouldReturnOptionalEmptyWhenFindByNumber() {
         when(cardRepository.findByNumber(eq(NUMBER_CARD))).thenReturn(Optional.empty());
 
         var entity = getCardProvider.execute(NUMBER_CARD);
