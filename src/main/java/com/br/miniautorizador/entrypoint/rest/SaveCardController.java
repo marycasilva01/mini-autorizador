@@ -1,5 +1,7 @@
 package com.br.miniautorizador.entrypoint.rest;
 
+import com.br.miniautorizador.common.exception.CardInvalidException;
+import com.br.miniautorizador.common.exception.CardNonexistentBalanceException;
 import com.br.miniautorizador.domain.usecase.SaveCardUseCase;
 import com.br.miniautorizador.entrypoint.rest.model.CardRequest;
 import com.br.miniautorizador.entrypoint.rest.model.CardResponse;
@@ -25,7 +27,6 @@ public class SaveCardController {
 
     private final SaveCardUseCase useCase;
 
-
     @Operation(summary = "Create a new card")
     @ApiResponses(
             value = {
@@ -35,11 +36,17 @@ public class SaveCardController {
                             content =
                             @Content(
                                     mediaType = "application/json",
+                                    schema = @Schema(implementation = CardResponse.class))),
+                    @ApiResponse(
+                            responseCode = "422",
+                            description = "Error operation",
+                            content =
+                            @Content(
+                                    mediaType = "application/json",
                                     schema = @Schema(implementation = CardResponse.class)))
             })
     @PostMapping
     public ResponseEntity<CardResponse> execute(@RequestBody CardRequest cardRequest) {
-        var saved = useCase.execute(cardRequest);
-        return new ResponseEntity<>(saved, CREATED);
+        return new ResponseEntity<>(useCase.execute(cardRequest), CREATED);
     }
 }

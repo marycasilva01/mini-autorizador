@@ -1,5 +1,6 @@
 package com.br.miniautorizador.dataprovider;
 
+import com.br.miniautorizador.common.exception.CardDuplicationException;
 import com.br.miniautorizador.common.exception.CardNonexistentBalanceException;
 import com.br.miniautorizador.dataprovider.mapper.CardMapper;
 import com.br.miniautorizador.dataprovider.repository.CardRepository;
@@ -19,7 +20,7 @@ public class SaveCardProviderImpl implements SaveCardProvider {
     @Override
     public CardDTO execute(CardRequest save) {
         repository.findByNumber(save.getNumber()).ifPresent(card -> {
-            throw new CardNonexistentBalanceException();
+            throw new CardDuplicationException(save.getNumber(), save.getPassword());
         });
 
         var card = repository.save(mapper.toCard(save));

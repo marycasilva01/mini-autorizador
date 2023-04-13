@@ -14,6 +14,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import static org.springframework.http.HttpStatus.CREATED;
 import static org.springframework.http.HttpStatus.OK;
 
 @RequiredArgsConstructor
@@ -30,8 +31,8 @@ public class TransactionController {
             @ApiResponse(responseCode = "500", description = "Internal Server Error")
     })
     @PostMapping
-    public ResponseEntity<StatusTransactionEnum> execute(@RequestBody @Valid TransactionRequest transactionRequest) {
+    public ResponseEntity<String> execute(@RequestBody @Valid TransactionRequest transactionRequest) {
         useCase.execute(transactionRequest);
-        return new ResponseEntity<>(StatusTransactionEnum.OK, OK);
+        return new ResponseEntity<>(StatusTransactionEnum.OK.name(), CREATED);
     }
 }

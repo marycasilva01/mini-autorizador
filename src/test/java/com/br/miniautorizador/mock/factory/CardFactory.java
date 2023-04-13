@@ -3,6 +3,7 @@ package com.br.miniautorizador.mock.factory;
 import com.br.miniautorizador.dataprovider.model.Card;
 import com.br.miniautorizador.domain.dataprovider.dto.CardDTO;
 import com.br.miniautorizador.entrypoint.rest.model.CardRequest;
+import com.br.miniautorizador.entrypoint.rest.model.CardResponse;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 
@@ -22,6 +23,10 @@ public final class CardFactory {
                 .password(PASSWORD)
                 .number(NUMBER)
                 .build();
+    }
+
+    public static CardResponse createCardResponse() {
+        return new CardResponse(NUMBER, PASSWORD);
     }
 
     public static Card createCard() {

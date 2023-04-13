@@ -38,7 +38,6 @@ class SaveCardUseCaseTest {
 
         assertTrue(Objects.nonNull(card));
         assertEquals(card.getNumber(), cardRequest.getNumber());
-        assertEquals(card.getAmount(), BigDecimal.valueOf(500L));
         verify(saveCardProvider).execute(eq(cardRequest));
     }
 

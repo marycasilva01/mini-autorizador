@@ -1,23 +1,22 @@
 package com.br.miniautorizador.entrypoint.rest.model;
 
 import com.br.miniautorizador.domain.dataprovider.dto.CardDTO;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.*;
-
-import java.math.BigDecimal;
 
 @Getter
 @Setter
+@AllArgsConstructor
+@NoArgsConstructor
 public class CardResponse {
 
-    private Long id;
+    @JsonProperty("numeroCartao")
     private String number;
+    @JsonProperty("senha")
     private String password;
-    private BigDecimal amount;
 
     public CardResponse(CardDTO cardDTO) {
-        this.id = cardDTO.getId();
         this.number = cardDTO.getNumber();
-        this.amount = cardDTO.getAmount();
         this.password = cardDTO.getPassword();
     }
 }

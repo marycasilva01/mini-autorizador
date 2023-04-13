@@ -17,11 +17,11 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
-class GetCardProviderImplTest {
+class BalanceCardProviderImplTest {
 
     private static final String NUMBER_CARD = "2345678912345678";
     @InjectMocks
-    private GetCardProviderImpl getCardProvider;
+    private BalanceCardProviderImpl getCardProvider;
 
     @Mock
     private CardRepository cardRepository;
@@ -33,7 +33,6 @@ class GetCardProviderImplTest {
 
         var entity = getCardProvider.execute(NUMBER_CARD);
         assertTrue(entity.isPresent());
-        assertEquals(entity.get().getNumber(), NUMBER_CARD);
         verify(cardRepository).findByNumber(eq(NUMBER_CARD));
     }
 
