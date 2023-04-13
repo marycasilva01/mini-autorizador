@@ -42,7 +42,8 @@ class GetCardProviderImplTest {
     void shouldReturnOptionalEmptyWhenFindByNumber() {
         when(cardRepository.findByNumber(eq(NUMBER_CARD))).thenReturn(Optional.empty());
 
-        assertThrows(CardNoFoundException.class, () -> getCardProvider.balance(NUMBER_CARD));
+        var entity = getCardProvider.balance(NUMBER_CARD);
+        assertTrue(entity.isEmpty());
         verify(cardRepository).findByNumber(eq(NUMBER_CARD));
     }
 }
