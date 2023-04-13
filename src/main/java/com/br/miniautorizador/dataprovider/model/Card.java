@@ -36,5 +36,4 @@ public class Card {
     @Column(name = "amount")
     private BigDecimal amount;
 
-
 }
