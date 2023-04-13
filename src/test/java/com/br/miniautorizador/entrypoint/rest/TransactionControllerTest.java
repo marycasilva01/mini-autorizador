@@ -4,9 +4,7 @@ import com.br.miniautorizador.common.enums.StatusTransactionEnum;
 import com.br.miniautorizador.common.exception.BalanceInsufficientException;
 import com.br.miniautorizador.common.exception.CardNonexistentTransactionException;
 import com.br.miniautorizador.common.exception.PasswordInvalidException;
-import com.br.miniautorizador.domain.usecase.BalanceCardUseCase;
 import com.br.miniautorizador.domain.usecase.TransactionCardUseCase;
-import com.br.miniautorizador.mock.factory.CardFactory;
 import com.br.miniautorizador.mock.factory.TransactionFactory;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Test;
@@ -17,7 +15,8 @@ import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 
 import static org.mockito.ArgumentMatchers.eq;
-import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.doNothing;
+import static org.mockito.Mockito.doThrow;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
@@ -45,8 +44,7 @@ class TransactionControllerTest {
         mvc.perform(post(URL_ENDPOINT).contentType(MediaType.APPLICATION_JSON).
                         content(objectMapper.writeValueAsString(transactionRequest)))
                 .andExpect(status().isCreated())
-                .andExpect(content().contentType("application/json"))
-                .andExpect(jsonPath("$").isNotEmpty());
+                .andExpect(jsonPath("$").value("OK"));
     }
 
     @Test

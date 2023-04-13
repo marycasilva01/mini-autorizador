@@ -1,8 +1,11 @@
 package com.br.miniautorizador.dataprovider.model;
 
-import com.br.miniautorizador.common.enums.StatusTransactionEnum;
-import com.br.miniautorizador.common.exception.HandleException;
-import jakarta.persistence.*;//TODO remover *
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Table;
+import jakarta.persistence.Id;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -33,8 +36,4 @@ public class Card {
     @Column(name = "amount")
     private BigDecimal amount;
 
-    public void checkSetAmountCard(HandleException handleException, BigDecimal amountTransaction) {
-        this.amount.add(this.amount.subtract(amountTransaction).signum() != -1 ? amountTransaction.subtract(amountTransaction) :
-                (BigDecimal) handleException.throwExceptionValidation(StatusTransactionEnum.SALDO_INSUFICIENTE));
-    }
 }

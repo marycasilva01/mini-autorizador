@@ -1,8 +1,8 @@
 package com.br.miniautorizador.dataprovider;
 
-import com.br.miniautorizador.common.enums.StatusTransactionEnum;
+import com.br.miniautorizador.common.exception.BalanceInsufficientException;
 import com.br.miniautorizador.common.exception.CardNonexistentTransactionException;
-import com.br.miniautorizador.common.exception.HandleException;
+import com.br.miniautorizador.common.exception.PasswordInvalidException;
 import com.br.miniautorizador.dataprovider.model.Card;
 import com.br.miniautorizador.dataprovider.repository.CardRepository;
 import com.br.miniautorizador.domain.dataprovider.TransactionProvider;
@@ -11,13 +11,13 @@ import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
+
 @Service
 @RequiredArgsConstructor
 public class TransactionProviderImpl implements TransactionProvider {
 
     private final CardRepository repository;
-
-    private final HandleException handleException;
 
     @Override
     @Transactional
@@ -25,16 +25,23 @@ public class TransactionProviderImpl implements TransactionProvider {
         repository.findByNumber(transactionRequest.getNumberCard())
                 .ifPresentOrElse(card -> {
                     checkPassword(transactionRequest.getPassword(), card.getPassword());
-                    card.checkSetAmountCard(handleException, transactionRequest.getAmount());
+                    checkBalanceCard(card.getAmount(), transactionRequest.getAmount());
                     saveTransaction(card, transactionRequest);
                 }, () -> {
                     throw new CardNonexistentTransactionException();
                 });
     }
 
+    private void checkBalanceCard(BigDecimal amount, BigDecimal amountTransaction) {
+        if (amount.subtract(amountTransaction).signum() == -1) {
+            throw new BalanceInsufficientException();
+        }
+    }
+
     private void checkPassword(String passwordTransaction, String passwordCard) {
-        var cardValid = passwordTransaction.equals(passwordCard) ? true :
-                handleException.throwExceptionValidation(StatusTransactionEnum.SENHA_INVALIDA);
+        if (!passwordTransaction.equals(passwordCard)) {
+            throw new PasswordInvalidException();
+        }
     }
 
     private void saveTransaction(Card card, TransactionRequest transactionRequest) {

@@ -10,11 +10,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import java.math.BigDecimal;
-import java.util.Objects;
-
 import static org.junit.jupiter.api.Assertions.*;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -36,7 +32,7 @@ class SaveCardUseCaseTest {
 
         var card = saveCardUseCase.execute(cardRequest);
 
-        assertTrue(Objects.nonNull(card));
+        assertNotNull(card);
         assertEquals(card.getNumber(), cardRequest.getNumber());
         verify(saveCardProvider).execute(eq(cardRequest));
     }

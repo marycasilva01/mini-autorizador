@@ -15,10 +15,12 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import java.math.BigDecimal;
 import java.util.Optional;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.eq;
-import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.never;
 
 @ExtendWith(MockitoExtension.class)
 class TransactionProviderImplTest {
@@ -71,10 +73,8 @@ class TransactionProviderImplTest {
     void shouldReturnErrorBalanceInsufficientExceptionWhenTransaction() {
         var request = TransactionFactory.create(BigDecimal.valueOf(510L));
         var entity = CardFactory.createCard();
-        when(cardRepository.findByNumber(eq(request.getNumberCard()))).thenReturn(Optional.of(entity));
-
-        assertThrows(BalanceInsufficientException.class,
-                () -> transactionProvider.execute(request));
+        when(cardRepository.findByNumber(any())).thenReturn(Optional.of(entity));
+        assertThrows(BalanceInsufficientException.class, () -> transactionProvider.execute(request));
 
         verify(cardRepository, never()).save(any());
         verify(cardRepository).findByNumber(eq(request.getNumberCard()));
