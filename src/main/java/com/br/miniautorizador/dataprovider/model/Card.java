@@ -1,6 +1,12 @@
 package com.br.miniautorizador.dataprovider.model;
 
-import jakarta.persistence.*;//TODO remover *
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Table;
+import jakarta.persistence.Id;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
