@@ -7,10 +7,10 @@ código, favorecendo a sua reusabilidade, assim como melhor manutenção.
 
 Sendo assim temos a divisão do projeto nas seguintes camadas:
 
-Controller: Responsável por lidar com as requisições dos usuarios;
-useCase: Camada onde esta localizada a aplicação das regras de negocios;
-Provider: Responsável por prover a chamada para camada de persistencia;
-Repository: Isola os objetos ou entidades do domínio do código que acessa o banco de dados.
+* **Controller**: Responsável por lidar com as requisições dos usuarios;
+* **UseCase**: Camada onde esta localizada a aplicação das regras de negocios;
+* **Provider**: Responsável por prover a chamada para camada de persistencia;
+* **Repository**: Isola os objetos ou entidades do domínio do código que acessa o banco de dados.
 
 # Tecnologias utilizadas
 
