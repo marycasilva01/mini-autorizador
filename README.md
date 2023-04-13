@@ -1,5 +1,5 @@
 # MINI AUTORIZADOR
-Desafio desenvolvido em Java com Spring Boot.
+API para controle de transações.
 
 # Tecnologias utilizadas
 
@@ -24,13 +24,9 @@ Desafio desenvolvido em Java com Spring Boot.
 ```bash
   cd docker && docker-compose up -d
 ```
-
 - Abra a IDE de sua preferência e importe o projeto clonado e aguarde o download de todas dependências do projeto
 
 - Execute o arquivo com a classe main MiniautorizadorApplication.java
-
-- Acesse a interface dos recursos do backend através do swagger usando o endereço local http://localhost:8080
-
 
 # Rotas
 ## Card Controller
