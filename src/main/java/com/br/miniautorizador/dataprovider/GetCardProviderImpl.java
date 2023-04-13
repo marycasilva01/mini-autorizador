@@ -18,7 +18,7 @@ public class GetCardProviderImpl implements GetCardProvider {
 
     @Override
     public Optional<BigDecimal> balance(String number) {
-        return Optional.ofNullable(get(number).getAmount());
+        return repository.findByNumber(number).map(Card::getAmount);
     }
 
     @Override
