@@ -1,7 +1,7 @@
 package com.br.miniautorizador.dataprovider;
 
-import com.br.miniautorizador.common.exception.CardDuplicationException;
-import com.br.miniautorizador.common.exception.CardNonexistentBalanceException;
+import com.br.miniautorizador.common.enums.StatusTransactionEnum;
+import com.br.miniautorizador.common.exception.HandleException;
 import com.br.miniautorizador.dataprovider.mapper.CardMapper;
 import com.br.miniautorizador.dataprovider.repository.CardRepository;
 import com.br.miniautorizador.domain.dataprovider.SaveCardProvider;
@@ -16,11 +16,12 @@ public class SaveCardProviderImpl implements SaveCardProvider {
 
     private final CardRepository repository;
     private final CardMapper mapper;
+    private final HandleException handleException;
 
     @Override
     public CardDTO execute(CardRequest save) {
         repository.findByNumber(save.getNumber()).ifPresent(card -> {
-            throw new CardDuplicationException(save.getNumber(), save.getPassword());
+            handleException.throwExceptionValidation(StatusTransactionEnum.CARTAO_EXISTENTE);
         });
 
         var card = repository.save(mapper.toCard(save));
