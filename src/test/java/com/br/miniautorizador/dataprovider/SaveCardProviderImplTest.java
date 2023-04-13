@@ -1,6 +1,6 @@
 package com.br.miniautorizador.dataprovider;
 
-import com.br.miniautorizador.common.exception.CardNonexistentBalanceException;
+import com.br.miniautorizador.common.exception.CardExistentException;
 import com.br.miniautorizador.dataprovider.mapper.CardMapper;
 import com.br.miniautorizador.dataprovider.repository.CardRepository;
 import com.br.miniautorizador.mock.factory.CardFactory;
@@ -48,8 +48,7 @@ class SaveCardProviderImplTest {
         var entity = CardFactory.createCard();
         when(cardRepository.findByNumber(eq(request.getNumber()))).thenReturn(Optional.of(entity));
 
-        assertThrows(CardNonexistentBalanceException.class,
-                () -> saveCardProvider.execute(request));
+        assertThrows(CardExistentException.class, () -> saveCardProvider.execute(request));
 
         verify(cardRepository, never()).save(any());
     }

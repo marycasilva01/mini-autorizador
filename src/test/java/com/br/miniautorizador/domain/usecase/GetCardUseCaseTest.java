@@ -1,8 +1,7 @@
 package com.br.miniautorizador.domain.usecase;
 
 import com.br.miniautorizador.common.exception.CardInvalidException;
-import com.br.miniautorizador.domain.dataprovider.BalanceCardProvider;
-import com.br.miniautorizador.mock.factory.CardFactory;
+import com.br.miniautorizador.domain.dataprovider.GetCardProvider;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -17,23 +16,21 @@ import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
-class BalanceCardUseCaseTest {
+class GetCardUseCaseTest {
 
     private static final String CARD_NUMBER = "1234567812345678";
     @InjectMocks
     private BalanceCardUseCase getCardUseCase;
 
     @Mock
-    private BalanceCardProvider getCardProvider;
+    private GetCardProvider getCardProvider;
 
     @Test
     void shouldReturnSuccessWhenFindCard() {
-        var cardDTO = CardFactory.createCardDTO();
-        when(getCardProvider.execute(eq(CARD_NUMBER))).thenReturn(Optional.of(BigDecimal.TEN));
-
+        when(getCardProvider.balance(eq(CARD_NUMBER))).thenReturn(Optional.of(BigDecimal.TEN));
         var card = getCardUseCase.execute(CARD_NUMBER);
         assertTrue(card.isPresent());
-        verify(getCardProvider).execute(eq(CARD_NUMBER));
+        verify(getCardProvider).balance(eq(CARD_NUMBER));
     }
 
     @Test
@@ -43,10 +40,10 @@ class BalanceCardUseCaseTest {
 
     @Test
     void shouldReturnEmptyWhenFindCard() {
-        when(getCardProvider.execute(eq(CARD_NUMBER))).thenReturn(Optional.empty());
+        when(getCardProvider.balance(eq(CARD_NUMBER))).thenReturn(Optional.empty());
 
         var card = getCardUseCase.execute(CARD_NUMBER);
         assertTrue(card.isEmpty());
-        verify(getCardProvider).execute(eq(CARD_NUMBER));
+        verify(getCardProvider).balance(eq(CARD_NUMBER));
     }
 }

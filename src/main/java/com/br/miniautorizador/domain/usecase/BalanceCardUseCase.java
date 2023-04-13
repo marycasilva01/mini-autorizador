@@ -1,7 +1,7 @@
 package com.br.miniautorizador.domain.usecase;
 
 import com.br.miniautorizador.common.exception.CardInvalidException;
-import com.br.miniautorizador.domain.dataprovider.BalanceCardProvider;
+import com.br.miniautorizador.domain.dataprovider.GetCardProvider;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -12,12 +12,12 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class BalanceCardUseCase {
 
-    private final BalanceCardProvider provider;
+    private final GetCardProvider provider;
 
     public Optional<BigDecimal> execute(String number){
         checkIfNumberCardIsValid(number);
 
-        return provider.execute(number);
+        return provider.balance(number);
     }
 
     private void checkIfNumberCardIsValid(String numberCard) {

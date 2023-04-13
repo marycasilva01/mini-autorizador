@@ -4,5 +4,6 @@ public enum StatusTransactionEnum {
     OK,
     SALDO_INSUFICIENTE,
     SENHA_INVALIDA,
+    CARTAO_EXISTENTE,
     CARTAO_INEXISTENTE;
 }

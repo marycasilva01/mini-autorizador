@@ -2,22 +2,13 @@ package com.br.miniautorizador.entrypoint.exception;
 
 import com.br.miniautorizador.common.enums.StatusTransactionEnum;
 import com.br.miniautorizador.common.exception.*;
-import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-import org.springframework.validation.BindingResult;
 import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
-import org.springframework.web.context.request.WebRequest;
-import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
-
-import java.time.LocalDateTime;
-import java.util.LinkedHashMap;
-import java.util.stream.Collectors;
 
 @ControllerAdvice
 public class ControllerExceptionHandler {
@@ -45,24 +36,17 @@ public class ControllerExceptionHandler {
 
 
     @ResponseBody
-    @ExceptionHandler(CardNonexistentTransactionException.class)
+    @ExceptionHandler(CardNoFoundException.class)
     @ResponseStatus(HttpStatus.UNPROCESSABLE_ENTITY)
-    String businessExceptionHandler(CardNonexistentTransactionException ex) {
+    String businessExceptionHandler(CardNoFoundException ex) {
         return StatusTransactionEnum.CARTAO_INEXISTENTE.name();
     }
 
     @ResponseBody
-    @ExceptionHandler(CardDuplicationException.class)
+    @ExceptionHandler(CardExistentException.class)
     @ResponseStatus(HttpStatus.UNPROCESSABLE_ENTITY)
-    CardExceptionDTO businessExceptionHandler(CardDuplicationException ex) {
+    CardExceptionDTO businessExceptionHandler(CardExistentException ex) {
         return new CardExceptionDTO(ex.getNumeroCartao(), ex.getSenha());
-    }
-
-    @ResponseBody
-    @ExceptionHandler(CardNonexistentBalanceException.class)
-    @ResponseStatus(HttpStatus.UNPROCESSABLE_ENTITY)
-    String businessExceptionHandler(CardNonexistentBalanceException ex) {
-        return StatusTransactionEnum.CARTAO_INEXISTENTE.name();
     }
 
     @ResponseBody
