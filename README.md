@@ -1,5 +1,16 @@
 # MINI AUTORIZADOR
-Desafio desenvolvido em Java com Spring Boot.
+API para controle de transações.
+
+# Arquitetura
+O projeto foi desenvolvido na arquitetura de software Clean Architecture, esta arquitetura foi escolhida por tem objetivo de padronizar e organizar o 
+código, favorecendo a sua reusabilidade, assim como melhor manutenção.
+
+Sendo assim temos a divisão do projeto nas seguintes camadas:
+
+* **Controller**: Responsável por lidar com as requisições dos usuarios;
+* **UseCase**: Camada onde esta localizada a aplicação das regras de negocios;
+* **Provider**: Responsável por prover a chamada para camada de persistencia;
+* **Repository**: Isola os objetos ou entidades do domínio do código que acessa o banco de dados.
 
 # Tecnologias utilizadas
 
@@ -24,13 +35,9 @@ Desafio desenvolvido em Java com Spring Boot.
 ```bash
   cd docker && docker-compose up -d
 ```
-
 - Abra a IDE de sua preferência e importe o projeto clonado e aguarde o download de todas dependências do projeto
 
 - Execute o arquivo com a classe main MiniautorizadorApplication.java
-
-- Acesse a interface dos recursos do backend através do swagger usando o endereço local http://localhost:8080
-
 
 # Rotas
 ## Card Controller

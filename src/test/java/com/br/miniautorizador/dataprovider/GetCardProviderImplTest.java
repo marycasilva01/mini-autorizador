@@ -1,5 +1,6 @@
 package com.br.miniautorizador.dataprovider;
 
+import com.br.miniautorizador.common.exception.CardNoFoundException;
 import com.br.miniautorizador.dataprovider.repository.CardRepository;
 import com.br.miniautorizador.mock.factory.CardFactory;
 import org.junit.jupiter.api.Test;
@@ -10,18 +11,19 @@ import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.Optional;
 
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.ArgumentMatchers.eq;
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
-class BalanceCardProviderImplTest {
+class GetCardProviderImplTest {
 
     private static final String NUMBER_CARD = "2345678912345678";
+
     @InjectMocks
-    private BalanceCardProviderImpl getCardProvider;
+    private GetCardProviderImpl getCardProvider;
 
     @Mock
     private CardRepository cardRepository;
@@ -31,7 +33,7 @@ class BalanceCardProviderImplTest {
         var optEntity = CardFactory.createCard();
         when(cardRepository.findByNumber(eq(NUMBER_CARD))).thenReturn(Optional.of(optEntity));
 
-        var entity = getCardProvider.execute(NUMBER_CARD);
+        var entity = getCardProvider.balance(NUMBER_CARD);
         assertTrue(entity.isPresent());
         verify(cardRepository).findByNumber(eq(NUMBER_CARD));
     }
@@ -40,8 +42,7 @@ class BalanceCardProviderImplTest {
     void shouldReturnOptionalEmptyWhenFindByNumber() {
         when(cardRepository.findByNumber(eq(NUMBER_CARD))).thenReturn(Optional.empty());
 
-        var entity = getCardProvider.execute(NUMBER_CARD);
-        assertTrue(entity.isEmpty());
+        assertThrows(CardNoFoundException.class, () -> getCardProvider.balance(NUMBER_CARD));
         verify(cardRepository).findByNumber(eq(NUMBER_CARD));
     }
 }

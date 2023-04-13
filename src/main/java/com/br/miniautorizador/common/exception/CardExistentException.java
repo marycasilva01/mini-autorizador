@@ -6,13 +6,13 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 
 @ResponseStatus(HttpStatus.UNPROCESSABLE_ENTITY)
 @Getter
-public class CardDuplicationException extends RuntimeException {
+public class CardExistentException extends RuntimeException {
 
     private final String numeroCartao;
 
     private final String senha;
 
-    public CardDuplicationException(String numeroCartao, String senha) {
+    public CardExistentException(String numeroCartao, String senha) {
         super();
         this.numeroCartao = numeroCartao;
         this.senha = senha;

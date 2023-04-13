@@ -1,7 +1,5 @@
 package com.br.miniautorizador.entrypoint.rest;
 
-import com.br.miniautorizador.common.exception.CardInvalidException;
-import com.br.miniautorizador.common.exception.CardNonexistentBalanceException;
 import com.br.miniautorizador.domain.usecase.SaveCardUseCase;
 import com.br.miniautorizador.entrypoint.rest.model.CardRequest;
 import com.br.miniautorizador.entrypoint.rest.model.CardResponse;
