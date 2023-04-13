@@ -1,6 +1,6 @@
 package com.br.miniautorizador.entrypoint.rest;
 
-import com.br.miniautorizador.common.exception.CardDuplicationException;
+import com.br.miniautorizador.common.exception.CardExistentException;
 import com.br.miniautorizador.common.exception.CardInvalidException;
 import com.br.miniautorizador.domain.usecase.SaveCardUseCase;
 import com.br.miniautorizador.mock.factory.CardFactory;
@@ -59,7 +59,7 @@ class SaveCardControllerTest {
     @Test
     void shouldTestSaveCardWithErrorCardDuplicationException() throws Exception {
         var cardRequest = CardFactory.create();
-        when(useCase.execute(eq(cardRequest))).thenThrow(new CardDuplicationException(cardRequest.getNumber(),
+        when(useCase.execute(eq(cardRequest))).thenThrow(new CardExistentException(cardRequest.getNumber(),
                 cardRequest.getPassword()));
 
         mvc.perform(post(URL_ENDPOINT).contentType(MediaType.APPLICATION_JSON).

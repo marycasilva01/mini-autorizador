@@ -2,7 +2,7 @@ package com.br.miniautorizador.entrypoint.rest;
 
 import com.br.miniautorizador.common.enums.StatusTransactionEnum;
 import com.br.miniautorizador.common.exception.BalanceInsufficientException;
-import com.br.miniautorizador.common.exception.CardNonexistentTransactionException;
+import com.br.miniautorizador.common.exception.CardNoFoundException;
 import com.br.miniautorizador.common.exception.PasswordInvalidException;
 import com.br.miniautorizador.domain.usecase.TransactionCardUseCase;
 import com.br.miniautorizador.mock.factory.TransactionFactory;
@@ -51,7 +51,7 @@ class TransactionControllerTest {
     void shouldTestWithErrorCardNonexistentTransactionExceptionWhenTransaction() throws Exception {
         var transactionRequest = TransactionFactory.create();
 
-        doThrow(CardNonexistentTransactionException.class).when(useCase).execute(eq(transactionRequest));
+        doThrow(CardNoFoundException.class).when(useCase).execute(eq(transactionRequest));
 
         mvc.perform(post(URL_ENDPOINT).contentType(MediaType.APPLICATION_JSON).
                         content(objectMapper.writeValueAsString(transactionRequest)))

@@ -3,6 +3,7 @@ package com.br.miniautorizador.common.exception;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
-@ResponseStatus(HttpStatus.NOT_FOUND)
-public class CardNonexistentBalanceException extends RuntimeException {
+@ResponseStatus(HttpStatus.UNPROCESSABLE_ENTITY)
+public class CardNoFoundException extends RuntimeException {
+
 }

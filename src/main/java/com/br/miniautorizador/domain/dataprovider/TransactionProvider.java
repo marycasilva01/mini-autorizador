@@ -1,8 +1,8 @@
 package com.br.miniautorizador.domain.dataprovider;
 
-import com.br.miniautorizador.entrypoint.rest.model.TransactionRequest;
+import com.br.miniautorizador.dataprovider.model.Card;
 
 public interface TransactionProvider {
 
-    void execute(TransactionRequest transactionRequest);
+    void execute(Card transactionRequest);
 }
